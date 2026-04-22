@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://sqce6qc3u45x"]
+
+[ext_resource type="Script" uid="uid://b5q58jaim6gbf" path="res://Scripts/Weapon/weapons.gd" id="1_opcfv"]
+[ext_resource type="Script" uid="uid://mfnpvd6b7jqj" path="res://Scripts/Weapon/gun.gd" id="1_poppk"]
+[ext_resource type="Texture2D" uid="uid://d2vfnt17fopsn" path="res://Sprites/Objects/Guns/Pisstol.png" id="2_opcfv"]
+[ext_resource type="AudioStream" uid="uid://ch5g2spetj3ki" path="res://Sounds/Weapons/Guns/Pistol Shot.mp3" id="3_0frgn"]
+[ext_resource type="Script" uid="uid://nwwm48yxx4m5" path="res://Scripts/Misc/sound_setting.gd" id="4_rsxaw"]
+
+[node name="BigGun" type="Node2D" unique_id=1183028101]
+z_index = 5
+script = ExtResource("1_opcfv")
+
+[node name="BigGun" type="Sprite2D" parent="." unique_id=250121748]
+texture = ExtResource("2_opcfv")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=457450665]
+position = Vector2(0, -38)
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=474177899]
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="." unique_id=97690157]
+one_shot = true
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="." unique_id=1109743671]
+stream = ExtResource("3_0frgn")
+volume_db = -10.0
+bus = &"Sound"
+script = ExtResource("4_rsxaw")
+pitch_variation = null
+
+[node name="HandPlacement" type="Node2D" parent="." unique_id=1012842160]
+
+[node name="LeftHand" type="Marker2D" parent="HandPlacement" unique_id=1340630241]
+position = Vector2(0, -16)
+
+[node name="RightHand" type="Marker2D" parent="HandPlacement" unique_id=415063946]
+position = Vector2(0, 25)
+
+[node name="Executor" type="Node2D" parent="." unique_id=312851577]
+script = ExtResource("1_poppk")
+fire_rate = 20.0

@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://vy6kdag2vglb"]
+
+[ext_resource type="Script" uid="uid://dfllc85leegb2" path="res://Scripts/Misc/character_movement.gd" id="1_x1rqp"]
+[ext_resource type="Texture2D" uid="uid://bsnjt8nhwiye3" path="res://Sprites/Characters/BaseCharacter.png" id="2_ubio8"]
+[ext_resource type="Script" uid="uid://dre3mdgyc8f1n" path="res://Scripts/Enemy/enemy_controls.gd" id="3_miwey"]
+[ext_resource type="Script" uid="uid://bi62mc6u8siwr" path="res://Scripts/Misc/health.gd" id="4_qwcx1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwcx1"]
+size = Vector2(70, 29)
+
+[sub_resource type="Animation" id="Animation_qwcx1"]
+resource_name = "Flash Damage"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t26db"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_35yb6"]
+_data = {
+&"Flash Damage": SubResource("Animation_qwcx1"),
+&"RESET": SubResource("Animation_t26db")
+}
+
+[node name="Enemy" type="RigidBody2D" unique_id=1613967225 groups=["Bleedable", "Health"]]
+script = ExtResource("1_x1rqp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1947791117]
+self_modulate = Color(0.9711576, 0.580094, 0.5815088, 1)
+position = Vector2(0, -30.999998)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ubio8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1558781187]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_qwcx1")
+
+[node name="Controls" type="Node2D" parent="." unique_id=632260126]
+script = ExtResource("3_miwey")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1284803949]
+avoidance_enabled = true
+radius = 286.29
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="." unique_id=284280607]
+libraries/ = SubResource("AnimationLibrary_35yb6")
+
+[node name="Health" type="Node" parent="." unique_id=518961321]
+unique_name_in_owner = true
+script = ExtResource("4_qwcx1")
+camera_shake_n_time = Vector2(2, 0.3)
+metadata/_custom_type_script = "uid://bi62mc6u8siwr"

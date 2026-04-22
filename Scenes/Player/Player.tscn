@@ -1,0 +1,200 @@
+[gd_scene format=3 uid="uid://l0p75n2jpdqg"]
+
+[ext_resource type="Script" uid="uid://dfllc85leegb2" path="res://Scripts/Misc/character_movement.gd" id="1_mr8yn"]
+[ext_resource type="Script" uid="uid://d4bermvl5ofnb" path="res://Scripts/Player/camera_controller.gd" id="2_fk5o5"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="3_y6xce"]
+[ext_resource type="PackedScene" uid="uid://rsbtvmw0lrrc" path="res://Scenes/Objects/Bodies/MaleBody.tscn" id="4_825xp"]
+[ext_resource type="Script" uid="uid://cllynkclib8pp" path="res://Scripts/Player/weapon_controls.gd" id="4_y6xce"]
+[ext_resource type="Script" uid="uid://cu8k4jhorcttt" path="res://Scripts/Player/player_controls.gd" id="6_8l360"]
+[ext_resource type="Script" uid="uid://bi62mc6u8siwr" path="res://Scripts/Misc/health.gd" id="7_t26db"]
+[ext_resource type="Script" uid="uid://duw61ylgm0f5v" path="res://Scripts/Misc/interactor.gd" id="9_825xp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wape"]
+size = Vector2(52.83, 25.96)
+
+[sub_resource type="Animation" id="Animation_4wape"]
+resource_name = "Flash Damage"
+length = 0.10000334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaleBody:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t26db"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaleBody:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fk5o5"]
+_data = {
+&"Flash Damage": SubResource("Animation_4wape"),
+&"RESET": SubResource("Animation_t26db")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fk5o5"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_825xp"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ji083"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_825xp"]
+nodes/output/position = Vector2(540, 180)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_fk5o5")
+nodes/Idle/position = Vector2(90, 131)
+nodes/Running/node = SubResource("AnimationNodeBlend2_ji083")
+nodes/Running/position = Vector2(318, 235)
+nodes/Run/node = SubResource("AnimationNodeAnimation_825xp")
+nodes/Run/position = Vector2(100, 360)
+node_connections = [&"output", 0, &"Running", &"Running", 0, &"Idle", &"Running", 1, &"Run"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fk5o5"]
+radius = 83.0
+
+[node name="Player" type="RigidBody2D" unique_id=778838274 node_paths=PackedStringArray("hands")]
+script = ExtResource("1_mr8yn")
+hands = [NodePath("MaleBody/Skeleton2D/IKs/LeftArmIKTarget"), NodePath("MaleBody/Skeleton2D/IKs/RightArmIKTarget")]
+
+[node name="CameraFollow" type="Node2D" parent="." unique_id=791718273]
+
+[node name="Camera2D" type="Camera2D" parent="CameraFollow" unique_id=1490702890 groups=["Camera"]]
+limit_enabled = false
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+script = ExtResource("2_fk5o5")
+
+[node name="MaleBody" parent="." unique_id=1199747336 instance=ExtResource("4_825xp")]
+self_modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.15, 0.15)
+
+[node name="LeftLeg" parent="MaleBody/Skeleton2D" parent_id_path=PackedInt32Array(1199747336, 26797134) index="0" unique_id=1021538385]
+position = Vector2(-94, -8.845604)
+
+[node name="LeftFoot" parent="MaleBody/Skeleton2D/LeftLeg" index="0" unique_id=570591537]
+position = Vector2(48.183617, 2.6471716e-06)
+
+[node name="RightLeg" parent="MaleBody/Skeleton2D" parent_id_path=PackedInt32Array(1199747336, 26797134) index="1" unique_id=1860913248]
+position = Vector2(94, 34.845604)
+
+[node name="RightFoot" parent="MaleBody/Skeleton2D/RightLeg" index="0" unique_id=1252395348]
+position = Vector2(5.8163795, 2.5756167e-06)
+
+[node name="RightArm" parent="MaleBody/Skeleton2D/Torso" parent_id_path=PackedInt32Array(1199747336, 1970341690) index="2" unique_id=1804861833]
+rotation = -0.8467677
+scale = Vector2(0.9998575, 0.9998575)
+
+[node name="RightForeArm" parent="MaleBody/Skeleton2D/Torso/RightArm" index="1" unique_id=1780372870]
+position = Vector2(188.99988, 1.000145)
+rotation = 0.5158818
+scale = Vector2(0.99998784, 0.99998784)
+
+[node name="RightHand" parent="MaleBody/Skeleton2D/Torso/RightArm/RightForeArm" index="1" unique_id=778159015]
+position = Vector2(-3.0517578e-05, -196.99995)
+rotation = 1.959301
+scale = Vector2(0.99999976, 0.99999976)
+
+[node name="LeftArm" parent="MaleBody/Skeleton2D/Torso" parent_id_path=PackedInt32Array(1199747336, 1970341690) index="3" unique_id=1410244914]
+rotation = 0.9736605
+scale = Vector2(0.9998562, 0.9998562)
+
+[node name="LeftForeArm" parent="MaleBody/Skeleton2D/Torso/LeftArm" index="1" unique_id=1011717682]
+position = Vector2(-189.99997, -3.0517578e-05)
+rotation = -0.37630105
+scale = Vector2(0.9999464, 0.9999464)
+
+[node name="LeftHand" parent="MaleBody/Skeleton2D/Torso/LeftArm/LeftForeArm" index="1" unique_id=826557631]
+position = Vector2(0, -196.99998)
+rotation = -2.7861202
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1969068235]
+shape = SubResource("RectangleShape2D_4wape")
+
+[node name="GunHolder" type="Marker2D" parent="." unique_id=113103527]
+position = Vector2(-11, -53)
+gizmo_extents = 11.5
+script = ExtResource("4_y6xce")
+
+[node name="MobileUI" type="CanvasLayer" parent="." unique_id=943438896]
+process_mode = 4
+visible = false
+
+[node name="MoveStick" parent="MobileUI" unique_id=1221205765 instance=ExtResource("3_y6xce")]
+modulate = Color(0.72780347, 0.90724325, 0.9473608, 1)
+offset_left = 83.0
+offset_top = -380.0
+offset_right = 383.0
+offset_bottom = -80.0
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+
+[node name="LookStick" parent="MobileUI" unique_id=113461385 instance=ExtResource("3_y6xce")]
+modulate = Color(0.9475296, 0.74734193, 0.7333952, 1)
+offset_left = 1552.0
+offset_top = -372.0
+offset_right = 1852.0
+offset_bottom = -72.0
+action_left = "look_left"
+action_right = "look_right"
+action_up = "look_up"
+action_down = "look_down"
+
+[node name="PlayerControls" type="Node2D" parent="." unique_id=1602603322]
+process_mode = 3
+script = ExtResource("6_8l360")
+
+[node name="DodgeTimer" type="Timer" parent="." unique_id=950607607]
+one_shot = true
+
+[node name="DodgeCooldown" type="Timer" parent="." unique_id=1822264896]
+one_shot = true
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="." unique_id=1654879947]
+libraries/ = SubResource("AnimationLibrary_fk5o5")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=575319442]
+root_node = NodePath("../MaleBody")
+tree_root = SubResource("AnimationNodeBlendTree_825xp")
+anim_player = NodePath("../MaleBody/AnimationPlayer")
+parameters/Running/blend_amount = 1.0
+
+[node name="Health" type="Node" parent="." unique_id=198328140]
+unique_name_in_owner = true
+script = ExtResource("7_t26db")
+max_health = 100.0
+metadata/_custom_type_script = "uid://bi62mc6u8siwr"
+
+[node name="Interactor" type="Area2D" parent="." unique_id=169829383]
+collision_layer = 512
+collision_mask = 1024
+script = ExtResource("9_825xp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactor" unique_id=2145424436]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_fk5o5")
+
+[connection signal="area_entered" from="Interactor" to="Interactor" method="_on_area_entered"]
+[connection signal="area_exited" from="Interactor" to="Interactor" method="_on_area_exited"]
+
+[editable path="MaleBody"]

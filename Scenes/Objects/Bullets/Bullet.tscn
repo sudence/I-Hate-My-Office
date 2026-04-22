@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://boj6s2a101ba4"]
+
+[ext_resource type="Texture2D" uid="uid://c2cx717yu08gk" path="res://Sprites/Objects/Bullets/small_bullet.png" id="1_a53er"]
+[ext_resource type="Script" uid="uid://bhnq6a0obonth" path="res://Scripts/Weapon/bullet.gd" id="1_bmrra"]
+
+[sub_resource type="Curve" id="Curve_bmrra"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_bmrra"]
+offsets = PackedFloat32Array(0, 0.176, 1)
+colors = PackedColorArray(0.8573917, 0, 0.18641075, 1, 0.98527235, 0.88350534, 0.89999294, 1, 1, 1, 1, 1)
+
+[node name="Bullet" type="Node2D" unique_id=1465060198]
+z_index = 4
+script = ExtResource("1_bmrra")
+
+[node name="SmallBullet" type="Sprite2D" parent="." unique_id=1129360114]
+texture = ExtResource("1_a53er")
+
+[node name="DecayTimer" type="Timer" parent="." unique_id=1554070978]
+one_shot = true
+autostart = true
+
+[node name="HitCheck" type="RayCast2D" parent="." unique_id=482561315]
+top_level = true
+target_position = Vector2(0, -51)
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1392936676]
+process_mode = 4
+visible = false
+top_level = true
+z_index = 29
+points = PackedVector2Array(0, 0, 0, -56)
+width_curve = SubResource("Curve_bmrra")
+gradient = SubResource("Gradient_bmrra")
+
+[connection signal="timeout" from="DecayTimer" to="." method="_on_decay_timer_timeout"]
