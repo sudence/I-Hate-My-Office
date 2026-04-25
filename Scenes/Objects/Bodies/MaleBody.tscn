@@ -510,9 +510,9 @@ rest = Transform2D(1, 0, 0, 1, 0, -197)
 [node name="IKs" type="Node2D" parent="Skeleton2D" unique_id=1084738908]
 
 [node name="RightArmIKTarget" type="Marker2D" parent="Skeleton2D/IKs" unique_id=226677206]
-position = Vector2(235, -338)
+position = Vector2(208, -326)
 gizmo_extents = 30.0
 
 [node name="LeftArmIKTarget" type="Marker2D" parent="Skeleton2D/IKs" unique_id=654100279]
-position = Vector2(-169, -331)
+position = Vector2(-229, -312)
 gizmo_extents = 30.0

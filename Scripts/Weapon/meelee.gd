@@ -1,43 +1,49 @@
 class_name Meelee
-extends Weapons
+extends Node2D
 
-#BulletConstants
-@export var bullet_res = preload("res://Scenes/Objects/Bullets/Bullet.tscn")
-@export var bullet_speed : float = 1000
+@onready var weapon := get_parent()
+@onready var hitbox: Area2D = weapon.get_node("Hitbox")
+@onready var attack_timer: Timer = weapon.get_node("AttackTimer")
 
-#Stats
-@export var bullet_damage : float = 2
-@export var fire_rate : float = 4
-@onready var shoot_timer: Timer = $"../ShootTimer"
-@onready var reload_timer: Timer = $"../ReloadTimer"
+# get player
+@onready var player := weapon.get_parent().get_parent() as RigidBody2D
 
-var shooting : bool
+var can_attack := true
 
-#Effects
-@export var camera_shake_n_time : Vector2 = Vector2(0.3, 0.1)
-var camera : CameraController
-@onready var muzzle: Marker2D = $"../Muzzle"
-@onready var shoot_sound: AudioSetting = $"../ShootSound"
+@export var lunge_force: float = 1200.0
+@export var lunge_time: float = 0.5
 
-func _ready() -> void:
-	camera = get_tree().get_first_node_in_group("Camera")
+func _ready():
+	attack_timer.timeout.connect(_on_attack_finished)
 
 func attack():
-	if shoot_timer.is_stopped():
-		effects()
-		var bullet_instance : Bullets = bullet_res.instantiate()
-		bullet_instance.speed = bullet_speed
-		bullet_instance.damage = bullet_damage
-		
-		bullet_instance.global_position = muzzle.global_position
-		bullet_instance.rotation = global_rotation
-		bullet_instance.last_position = $"../..".global_position
-		
-		get_tree().root.add_child(bullet_instance)
-		
-		shoot_timer.start(1/fire_rate)
-
-func effects() -> void:
-	camera.Shake(camera_shake_n_time.x, camera_shake_n_time.y)
+	if not can_attack:
+		return
 	
-	shoot_sound.play_sound(muzzle.global_position)
+	can_attack = false
+	
+	# direction from player to mouse
+	var dir = (get_global_mouse_position() - player.global_position).normalized()
+	
+	# apply forward push (lunge)
+	player.linear_velocity = dir * lunge_force
+	
+	# enable hitbox
+	hitbox.monitoring = true
+	
+	# start timer
+	attack_timer.start(lunge_time)
+
+func _on_attack_finished():
+	# stop movement quickly
+	player.linear_velocity = Vector2.ZERO
+	
+	# disable hitbox
+	hitbox.monitoring = false
+	
+	can_attack = true
+
+
+func _on_Hitbox_body_entered(body):
+	if body.has_method("take_damage"):
+		body.take_damage(1)

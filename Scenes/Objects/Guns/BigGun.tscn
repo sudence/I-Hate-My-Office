@@ -6,9 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://ch5g2spetj3ki" path="res://Sounds/Weapons/Guns/Pistol Shot.mp3" id="3_0frgn"]
 [ext_resource type="Script" uid="uid://nwwm48yxx4m5" path="res://Scripts/Misc/sound_setting.gd" id="4_rsxaw"]
 
-[node name="BigGun" type="Node2D" unique_id=1183028101]
+[node name="BigGun" type="Node2D" unique_id=1183028101 node_paths=PackedStringArray("hand_placement")]
 z_index = 5
 script = ExtResource("1_opcfv")
+hand_placement = [NodePath("HandPlacement/LeftHand"), NodePath("HandPlacement/RightHand")]
 
 [node name="BigGun" type="Sprite2D" parent="." unique_id=250121748]
 texture = ExtResource("2_opcfv")

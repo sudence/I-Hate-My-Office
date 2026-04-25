@@ -27,7 +27,7 @@ func _input(event: InputEvent) -> void:
 		shooting = false
 	
 	movement.look_dir = look_dir
-	#look_dir = Input.get_vector("look_left", "look_right", "look_up", "look_down")
+	look_dir = Input.get_vector("look_left", "look_right", "look_up", "look_down")
 	
 	#Interactions
 	if event.is_action_pressed("interact"):
@@ -36,5 +36,5 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if shooting:
 		weapon_controller.attack()
-	#if look_dir.length() > shoot_threshold:
-		#weapon_controller.attack()
+	if look_dir.length() > shoot_threshold:
+		weapon_controller.attack()

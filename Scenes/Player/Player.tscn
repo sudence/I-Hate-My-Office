@@ -87,16 +87,16 @@ self_modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.15, 0.15)
 
 [node name="LeftLeg" parent="MaleBody/Skeleton2D" parent_id_path=PackedInt32Array(1199747336, 26797134) index="0" unique_id=1021538385]
-position = Vector2(-94, -8.845604)
+position = Vector2(-94, 41.619007)
 
 [node name="LeftFoot" parent="MaleBody/Skeleton2D/LeftLeg" index="0" unique_id=570591537]
-position = Vector2(48.183617, 2.6471716e-06)
+position = Vector2(-0.7517662, 1.1264525e-06)
 
 [node name="RightLeg" parent="MaleBody/Skeleton2D" parent_id_path=PackedInt32Array(1199747336, 26797134) index="1" unique_id=1860913248]
-position = Vector2(94, 34.845604)
+position = Vector2(94, -15.619007)
 
 [node name="RightFoot" parent="MaleBody/Skeleton2D/RightLeg" index="0" unique_id=1252395348]
-position = Vector2(5.8163795, 2.5756167e-06)
+position = Vector2(54.751766, 1.0960036e-06)
 
 [node name="RightArm" parent="MaleBody/Skeleton2D/Torso" parent_id_path=PackedInt32Array(1199747336, 1970341690) index="2" unique_id=1804861833]
 rotation = -0.8467677
@@ -118,7 +118,7 @@ scale = Vector2(0.9998562, 0.9998562)
 
 [node name="LeftForeArm" parent="MaleBody/Skeleton2D/Torso/LeftArm" index="1" unique_id=1011717682]
 position = Vector2(-189.99997, -3.0517578e-05)
-rotation = -0.37630105
+rotation = -0.37630102
 scale = Vector2(0.9999464, 0.9999464)
 
 [node name="LeftHand" parent="MaleBody/Skeleton2D/Torso/LeftArm/LeftForeArm" index="1" unique_id=826557631]
