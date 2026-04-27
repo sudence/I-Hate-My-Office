@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dxld3f4r3o1a8"]
+
+[ext_resource type="Texture2D" uid="uid://d2vfnt17fopsn" path="res://Sprites/Objects/Guns/Pisstol.png" id="1_spa7e"]
+[ext_resource type="Script" uid="uid://b5q58jaim6gbf" path="res://Scripts/Weapon/weapons.gd" id="1_t2g5n"]
+[ext_resource type="Script" uid="uid://c26cbgxvw00f2" path="res://Scripts/Weapon/meelee.gd" id="2_rnnvl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spa7e"]
+radius = 38.118237
+
+[node name="Knife" type="Node2D" unique_id=968105542 node_paths=PackedStringArray("hand_placement")]
+script = ExtResource("1_t2g5n")
+hand_placement = [NodePath("HandPlacement/LeftHand"), NodePath("HandPlacement/RightHand")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=951261298]
+position = Vector2(-15.768187, 0.47878563)
+rotation = 1.5707964
+scale = Vector2(0.6713729, 2.210808)
+texture = ExtResource("1_spa7e")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1699500790]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1115301218]
+position = Vector2(-73, 0)
+shape = SubResource("CircleShape2D_spa7e")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=827600394]
+one_shot = true
+
+[node name="HandPlacement" type="Node2D" parent="." unique_id=259585225]
+
+[node name="LeftHand" type="Marker2D" parent="HandPlacement" unique_id=343044226]
+position = Vector2(34, 0)
+
+[node name="RightHand" type="Marker2D" parent="HandPlacement" unique_id=1984239367]
+position = Vector2(51, 0)
+
+[node name="Executor" type="Node2D" parent="." unique_id=690016066]
+position = Vector2(50, 0)
+script = ExtResource("2_rnnvl")

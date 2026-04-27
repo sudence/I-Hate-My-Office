@@ -18,7 +18,7 @@ func interact():
 		if current_distance < min_distance:
 			min_dist_item = item
 	
-	replace_weapon(min_dist_item.pick_up())dw
+	replace_weapon(min_dist_item.pick_up())
 
 func replace_weapon(weapon: Weapons):
 	weapon_controls.equip_weapon(weapon)
