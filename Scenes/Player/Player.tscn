@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="3_y6xce"]
 [ext_resource type="PackedScene" uid="uid://rsbtvmw0lrrc" path="res://Scenes/Objects/Bodies/MaleBody.tscn" id="4_825xp"]
 [ext_resource type="Script" uid="uid://cllynkclib8pp" path="res://Scripts/Player/weapon_controls.gd" id="4_y6xce"]
+[ext_resource type="PackedScene" uid="uid://1bjcyjdtikri" path="res://Scenes/Objects/Pickup/Pickup.tscn" id="5_825xp"]
 [ext_resource type="Script" uid="uid://cu8k4jhorcttt" path="res://Scripts/Player/player_controls.gd" id="6_8l360"]
 [ext_resource type="Script" uid="uid://bi62mc6u8siwr" path="res://Scripts/Misc/health.gd" id="7_t26db"]
 [ext_resource type="Script" uid="uid://duw61ylgm0f5v" path="res://Scripts/Misc/interactor.gd" id="9_825xp"]
@@ -87,16 +88,16 @@ self_modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.15, 0.15)
 
 [node name="LeftLeg" parent="MaleBody/Skeleton2D" parent_id_path=PackedInt32Array(1199747336, 26797134) index="0" unique_id=1021538385]
-position = Vector2(-94, 41.619007)
+position = Vector2(-94, -3.372158)
 
 [node name="LeftFoot" parent="MaleBody/Skeleton2D/LeftLeg" index="0" unique_id=570591537]
-position = Vector2(-0.7517662, 1.1264525e-06)
+position = Vector2(42.876034, 2.482233e-06)
 
 [node name="RightLeg" parent="MaleBody/Skeleton2D" parent_id_path=PackedInt32Array(1199747336, 26797134) index="1" unique_id=1860913248]
-position = Vector2(94, -15.619007)
+position = Vector2(94, 29.372158)
 
 [node name="RightFoot" parent="MaleBody/Skeleton2D/RightLeg" index="0" unique_id=1252395348]
-position = Vector2(54.751766, 1.0960036e-06)
+position = Vector2(11.123962, 2.4151364e-06)
 
 [node name="RightArm" parent="MaleBody/Skeleton2D/Torso" parent_id_path=PackedInt32Array(1199747336, 1970341690) index="2" unique_id=1804861833]
 rotation = -0.8467677
@@ -133,6 +134,7 @@ shape = SubResource("RectangleShape2D_4wape")
 position = Vector2(-11, -53)
 gizmo_extents = 11.5
 script = ExtResource("4_y6xce")
+pickup_scene = ExtResource("5_825xp")
 
 [node name="MobileUI" type="CanvasLayer" parent="." unique_id=943438896]
 process_mode = 4

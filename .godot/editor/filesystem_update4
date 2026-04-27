@@ -1,7 +1,0 @@
-res://Scenes/Objects/Knife/Knife.tscn
-res://Scenes/Objects/Pickup/Pickup.tscn
-res://Scripts/Misc/pickup.gd
-res://Scripts/Weapon/meelee.gd
-res://Scenes/Levels/Testerooni.tscn
-res://Scenes/Objects/Guns/BigGun.tscn
-res://Scripts/Player/weapon_controls.gd
