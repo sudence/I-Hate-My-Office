@@ -10,9 +10,9 @@ func equip_weapon(new_weapon: Weapons) -> void:
 	if new_weapon == null:
 		return
 	
-	#  DROP CURRENT WEAPON FIRST
+	#  DROP CURRENT WEAPON (if exists)
 	if current_weapon:
-		drop_weapon()
+		_drop_current_weapon()
 	
 	#  EQUIP NEW WEAPON
 	current_weapon = new_weapon
@@ -23,25 +23,26 @@ func equip_weapon(new_weapon: Weapons) -> void:
 	if character:
 		character.place_hands(current_weapon.hand_placement)
 
-func drop_weapon():
-	if pickup_scene == null or current_weapon == null:
+func _drop_current_weapon():
+	if pickup_scene == null:
+		push_error("pickup_scene not assigned!")
 		return
 	
 	var pickup = pickup_scene.instantiate()
 	get_tree().current_scene.add_child(pickup)
 	
 	# drop near player
-	pickup.global_position = global_position
+	pickup.global_position = global_position + Vector2(randf_range(-10,10), randf_range(-10,10))
 	
-	# assign weapon back into pickup
+	# assign weapon scene back
 	if current_weapon.scene_file_path != "":
 		pickup.weapon_scene = load(current_weapon.scene_file_path)
 	
-	# copy sprite (so it looks correct on ground)
+	# copy sprite (important for visuals)
 	if current_weapon.has_node("Sprite2D"):
 		pickup.sprite = current_weapon.get_node("Sprite2D").texture
 	
-	# remove weapon from player
+	# remove weapon
 	current_weapon.queue_free()
 	current_weapon = null
 
